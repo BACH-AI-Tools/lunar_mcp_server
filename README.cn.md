@@ -1,0 +1,237 @@
+# 农历MCP服务器
+
+[![GitHub Repository](https://img.shields.io/badge/GitHub-AlbertHuangKSFO/lunar_mcp_server-blue?style=flat&logo=github)](https://github.com/AlbertHuangKSFO/lunar_mcp_server)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
+[![GitHub stars](https://img.shields.io/github/stars/AlbertHuangKSFO/lunar_mcp_server.svg?style=social&label=Star)](https://github.com/AlbertHuangKSFO/lunar_mcp_server)
+[![GitHub forks](https://img.shields.io/github/forks/AlbertHuangKSFO/lunar_mcp_server.svg?style=social&label=Fork)](https://github.com/AlbertHuangKSFO/lunar_mcp_server/fork)
+
+**中文** | [English](README.md) | [语言选择/Language](LANGUAGE.md)
+
+基于Python 3.12和lunar-python构建的中国传统历法模型上下文协议(MCP)服务器。
+
+## 功能特性
+
+🎋 **生辰八字计算** - 计算八字用于命理分析  
+📅 **历法转换** - 公历农历互相转换  
+🌙 **黄历查询** - 中国传统黄历，包含每日宜忌建议  
+🔮 **每日运势** - 基于传统历法的每日运势分析  
+⭐ **节气查询** - 查询任意年份的二十四节气  
+🧮 **五行分析** - 根据出生信息分析五行属性  
+
+## 安装
+
+### 前置要求
+
+- Python 3.12+
+- uv 包管理器
+
+### 设置
+
+1. **克隆仓库：**
+```bash
+git clone <repository-url>
+cd lunar-mcp-server
+```
+
+2. **安装uv（如果尚未安装）：**
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+3. **安装项目及依赖：**
+```bash
+uv sync
+```
+
+这将自动：
+- 创建Python 3.12虚拟环境
+- 从pyproject.toml安装所有依赖
+- 生成uv.lock确保构建可重现
+
+## 使用方法
+
+### 作为MCP服务器
+
+在MCP客户端中配置（例如Claude Desktop）：
+
+```json
+{
+  "mcpServers": {
+    "lunar-calendar": {
+      "command": "uv",
+      "args": ["run", "python", "-m", "src.server"],
+      "cwd": "/path/to/lunar-mcp-server"
+    }
+  }
+}
+```
+
+### 直接使用
+
+你也可以直接使用辅助函数：
+
+```bash
+# 使用uv运行
+uv run python -c "
+from src.utils import LunarHelper
+result = LunarHelper.solar_to_lunar(2024, 1, 1)
+print(result['lunar_date_chinese'])  # 二〇二三年冬月二十
+"
+
+# 计算八字
+uv run python -c "
+from src.utils import LunarHelper
+result = LunarHelper.get_bazi(1990, 1, 1, 8, 30)
+print(result['bazi_string'])  # 己巳 丙子 丙寅 壬辰
+"
+```
+
+## 可用工具
+
+### 1. bazi_calculate（生辰八字计算）
+
+计算用于命理分析的生辰八字。
+
+**参数：**
+- `birth_date`: 出生日期，格式YYYY-MM-DD
+- `birth_time`: 出生时间，格式HH:MM
+
+**示例：**
+```json
+{
+  "birth_date": "1990-01-01",
+  "birth_time": "08:30"
+}
+```
+
+### 2. calendar_convert（历法转换）
+
+公历和农历之间的相互转换。
+
+**参数：**
+- `date`: 日期，格式YYYY-MM-DD
+- `convert_to`: "lunar"（农历）或"solar"（公历）
+- `is_leap`: 是否闰月（可选）
+
+**示例：**
+```json
+{
+  "date": "2024-01-01",
+  "convert_to": "lunar"
+}
+```
+
+### 3. huangli_query（黄历查询）
+
+查询指定日期的中国传统黄历信息。
+
+**参数：**
+- `date`: 日期，格式YYYY-MM-DD
+
+**示例：**
+```json
+{
+  "date": "2024-01-01"
+}
+```
+
+### 4. fortune_daily（每日运势）
+
+获取每日运势和建议。
+
+**参数：**
+- `date`: 日期，格式YYYY-MM-DD
+
+**示例：**
+```json
+{
+  "date": "2024-01-01"
+}
+```
+
+### 5. jieqi_query（节气查询）
+
+查询指定年份的二十四节气。
+
+**参数：**
+- `year`: 查询的年份
+
+**示例：**
+```json
+{
+  "year": 2024
+}
+```
+
+### 6. wuxing_analyze（五行分析）
+
+根据出生信息分析五行属性。
+
+**参数：**
+- `birth_date`: 出生日期，格式YYYY-MM-DD
+- `birth_time`: 出生时间，格式HH:MM
+
+**示例：**
+```json
+{
+  "birth_date": "1990-01-01",
+  "birth_time": "08:30"
+}
+```
+
+## 开发
+
+### 运行测试
+
+```bash
+# 快速功能测试
+uv run python quick_test.py
+
+# 运行MCP服务器
+uv run python run_server.py
+
+# 测试特定功能
+uv run python -c "from src.utils import LunarHelper; print('✅ 导入成功!')"
+
+# 安装开发依赖（可选）
+uv add --dev pytest black mypy
+```
+
+### 代码格式化
+
+```bash
+# 格式化代码
+black src/
+isort src/
+
+# 类型检查
+mypy src/
+```
+
+## 依赖
+
+- **mcp**: 模型上下文协议实现
+- **lunar-python**: 中国农历库
+- **pydantic**: 数据验证和设置管理
+
+## 贡献
+
+1. Fork仓库
+2. 创建功能分支
+3. 提交更改
+4. 推送到分支
+5. 创建Pull Request
+
+## 许可证
+
+本项目采用MIT许可证 - 详见[LICENSE](LICENSE)文件。
+
+## 致谢
+
+- [lunar-python](https://github.com/6tail/lunar-python) - 优秀的中国农历库
+- [MCP](https://modelcontextprotocol.io/) - 模型上下文协议规范
+
+---
+
+**注意：** 这是一个用于教育和娱乐目的的传统历法工具，请负责任地使用。
