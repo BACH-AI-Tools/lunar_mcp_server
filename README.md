@@ -1,15 +1,70 @@
 # Lunar Calendar MCP Server
 
-[![GitHub Repository](https://img.shields.io/badge/GitHub-AlbertHuangKSFO/lunar_mcp_server-blue?style=flat&logo=github)](https://github.com/AlbertHuangKSFO/lunar_mcp_server)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-BACH--AI--Tools/lunar__mcp__server-blue?style=flat&logo=github)](https://github.com/BACH-AI-Tools/lunar_mcp_server)
+[![PyPI version](https://img.shields.io/pypi/v/bach-lunar-mcp.svg)](https://pypi.org/project/bach-lunar-mcp/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![MCP Server](https://img.shields.io/badge/MCP-Server-green.svg)](https://modelcontextprotocol.io/)
-[![GitHub stars](https://img.shields.io/github/stars/AlbertHuangKSFO/lunar_mcp_server.svg?style=social&label=Star)](https://github.com/AlbertHuangKSFO/lunar_mcp_server)
-[![GitHub forks](https://img.shields.io/github/forks/AlbertHuangKSFO/lunar_mcp_server.svg?style=social&label=Fork)](https://github.com/AlbertHuangKSFO/lunar_mcp_server/fork)
 
-[中文](README.cn.md) | **English** | [语言选择/Language](LANGUAGE.md)
+[中文](README.cn.md) | **English**
 
 A Model Context Protocol (MCP) server for Chinese traditional calendar functions, built with Python 3.12 and lunar-python.
+
+## 🚀 Quick Start (Recommended)
+
+### One-Command Launch with UVX
+
+```bash
+uvx bach-lunar-mcp
+```
+
+**That's it!** No installation, no virtual environment setup, no dependencies to manage. UVX will automatically download and run the server.
+
+### Configure in Your MCP Client
+
+#### Cursor IDE
+
+```json
+{
+  "mcpServers": {
+    "lunar-calendar": {
+      "command": "uvx",
+      "args": ["bach-lunar-mcp"]
+    }
+  }
+}
+```
+
+#### Claude Desktop
+
+```json
+{
+  "mcpServers": {
+    "lunar-calendar": {
+      "command": "uvx",
+      "args": ["bach-lunar-mcp"]
+    }
+  }
+}
+```
+
+#### Cherry Studio
+
+```json
+{
+  "mcpServers": {
+    "lunar-calendar": {
+      "command": "uvx",
+      "args": ["bach-lunar-mcp"]
+    }
+  }
+}
+```
+
+**📦 PyPI Package**: https://pypi.org/project/bach-lunar-mcp/  
+**📖 Quick Start Guide**: [QUICKSTART_UVX.md](QUICKSTART_UVX.md)
+
+---
 
 ## Features
 
@@ -18,7 +73,7 @@ A Model Context Protocol (MCP) server for Chinese traditional calendar functions
 🌙 **Huangli Query** - Chinese almanac with daily recommendations  
 🔮 **Daily Fortune** - Daily fortune and recommendations  
 ⭐ **Solar Terms** - Query 24 solar terms for any year  
-🧮 **Wu Xing Analysis** - Five elements analysis from birth info  
+🧮 **Wu Xing Analysis** - Five elements analysis from birth info
 
 ## Installation
 
@@ -30,22 +85,26 @@ A Model Context Protocol (MCP) server for Chinese traditional calendar functions
 ### Setup
 
 1. **Clone the repository:**
+
 ```bash
 git clone <repository-url>
 cd lunar-mcp-server
 ```
 
 2. **Install uv (if not already installed):**
+
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 3. **Install project with dependencies:**
+
 ```bash
 uv sync
 ```
 
 This will automatically:
+
 - Create a virtual environment with Python 3.12
 - Install all dependencies from pyproject.toml
 - Generate uv.lock for reproducible builds
@@ -95,10 +154,12 @@ print(result['bazi_string'])  # 己巳 丙子 丙寅 壬辰
 Calculate BaZi (Eight Characters) for fortune telling.
 
 **Parameters:**
+
 - `birth_date`: Birth date in YYYY-MM-DD format
 - `birth_time`: Birth time in HH:MM format
 
 **Example:**
+
 ```json
 {
   "birth_date": "1990-01-01",
@@ -111,11 +172,13 @@ Calculate BaZi (Eight Characters) for fortune telling.
 Convert between solar and lunar calendars.
 
 **Parameters:**
+
 - `date`: Date in YYYY-MM-DD format
 - `convert_to`: "lunar" or "solar"
 - `is_leap`: Is leap month (optional)
 
 **Example:**
+
 ```json
 {
   "date": "2024-01-01",
@@ -128,9 +191,11 @@ Convert between solar and lunar calendars.
 Query Chinese almanac information for a specific date.
 
 **Parameters:**
+
 - `date`: Date in YYYY-MM-DD format
 
 **Example:**
+
 ```json
 {
   "date": "2024-01-01"
@@ -142,9 +207,11 @@ Query Chinese almanac information for a specific date.
 Get daily fortune and recommendations.
 
 **Parameters:**
+
 - `date`: Date in YYYY-MM-DD format
 
 **Example:**
+
 ```json
 {
   "date": "2024-01-01"
@@ -156,9 +223,11 @@ Get daily fortune and recommendations.
 Query 24 solar terms for a specific year.
 
 **Parameters:**
+
 - `year`: Year to query
 
 **Example:**
+
 ```json
 {
   "year": 2024
@@ -170,10 +239,12 @@ Query 24 solar terms for a specific year.
 Analyze Wu Xing (Five Elements) from birth information.
 
 **Parameters:**
+
 - `birth_date`: Birth date in YYYY-MM-DD format
 - `birth_time`: Birth time in HH:MM format
 
 **Example:**
+
 ```json
 {
   "birth_date": "1990-01-01",

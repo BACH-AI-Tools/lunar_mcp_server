@@ -6,14 +6,8 @@ A Model Context Protocol server for Chinese traditional calendar functions
 中国传统历法功能的模型上下文协议服务器
 """
 
-import asyncio
-import sys
-import os
-from typing import Any
-from datetime import datetime
-
 from mcp.server import FastMCP
-from src.utils.lunar_helper import LunarHelper
+from utils.lunar_helper import LunarHelper
 
 # Initialize the MCP server / 初始化MCP服务器
 app = FastMCP(
@@ -395,43 +389,11 @@ def wuxing_analyze(birth_date: str, birth_time: str) -> str:
         return f"Error parsing date/time / 日期时间解析错误: {str(e)}"
 
 
-async def main():
+def main():
     """Main function to run the MCP server / 运行MCP服务器的主函数"""
-    print("🌙 Lunar MCP Server starting...", file=sys.stderr)
-    print(f"🔍 Process PID: {os.getpid()}", file=sys.stderr)
-    sys.stderr.flush()
-    
-    try:
-        # Ensure stdout/stderr are unbuffered for better debugging
-        sys.stdout.reconfigure(line_buffering=True)
-        sys.stderr.reconfigure(line_buffering=True)
-        
-        print("🔍 About to call app.run_stdio_async()", file=sys.stderr)
-        sys.stderr.flush()
-        
-        # Run the MCP server
-        await app.run_stdio_async()
-        
-        print("🔍 app.run_stdio_async() returned normally", file=sys.stderr)
-        sys.stderr.flush()
-        
-    except KeyboardInterrupt:
-        print("🛑 Server stopped by user", file=sys.stderr)
-    except EOFError as e:
-        print(f"🔍 EOF reached: {e}", file=sys.stderr)
-    except BrokenPipeError as e:
-        print(f"🔍 Broken pipe: {e}", file=sys.stderr)
-    except ConnectionResetError as e:
-        print(f"🔍 Connection reset: {e}", file=sys.stderr)
-    except Exception as e:
-        print(f"❌ Server error: {type(e).__name__}: {e}", file=sys.stderr)
-        import traceback
-        traceback.print_exc(file=sys.stderr)
-        raise
-    finally:
-        print("✅ Server shut down", file=sys.stderr)
-        sys.stderr.flush()
+    # FastMCP.run() handles everything: stdio transport, async event loop, etc.
+    app.run()
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

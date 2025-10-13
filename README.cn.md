@@ -1,14 +1,70 @@
-# 农历MCP服务器
+# 农历 MCP 服务器
 
-[![GitHub Repository](https://img.shields.io/badge/GitHub-AlbertHuangKSFO/lunar_mcp_server-blue?style=flat&logo=github)](https://github.com/AlbertHuangKSFO/lunar_mcp_server)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-BACH--AI--Tools/lunar__mcp__server-blue?style=flat&logo=github)](https://github.com/BACH-AI-Tools/lunar_mcp_server)
+[![PyPI version](https://img.shields.io/pypi/v/bach-lunar-mcp.svg)](https://pypi.org/project/bach-lunar-mcp/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
-[![GitHub stars](https://img.shields.io/github/stars/AlbertHuangKSFO/lunar_mcp_server.svg?style=social&label=Star)](https://github.com/AlbertHuangKSFO/lunar_mcp_server)
-[![GitHub forks](https://img.shields.io/github/forks/AlbertHuangKSFO/lunar_mcp_server.svg?style=social&label=Fork)](https://github.com/AlbertHuangKSFO/lunar_mcp_server/fork)
+[![MCP Server](https://img.shields.io/badge/MCP-Server-green.svg)](https://modelcontextprotocol.io/)
 
-**中文** | [English](README.md) | [语言选择/Language](LANGUAGE.md)
+**中文** | [English](README.md)
 
-基于Python 3.12和lunar-python构建的中国传统历法模型上下文协议(MCP)服务器。
+基于 Python 3.12 和 lunar-python 构建的中国传统历法模型上下文协议(MCP)服务器。
+
+## 🚀 快速启动（推荐）
+
+### 使用 UVX 一键启动
+
+```bash
+uvx bach-lunar-mcp
+```
+
+**就这么简单！** 无需安装、无需配置虚拟环境、无需管理依赖。UVX 会自动下载并运行服务器。
+
+### 在 MCP 客户端中配置
+
+#### Cursor IDE
+
+```json
+{
+  "mcpServers": {
+    "lunar-calendar": {
+      "command": "uvx",
+      "args": ["bach-lunar-mcp"]
+    }
+  }
+}
+```
+
+#### Claude Desktop
+
+```json
+{
+  "mcpServers": {
+    "lunar-calendar": {
+      "command": "uvx",
+      "args": ["bach-lunar-mcp"]
+    }
+  }
+}
+```
+
+#### Cherry Studio
+
+```json
+{
+  "mcpServers": {
+    "lunar-calendar": {
+      "command": "uvx",
+      "args": ["bach-lunar-mcp"]
+    }
+  }
+}
+```
+
+**📦 PyPI 包地址**: https://pypi.org/project/bach-lunar-mcp/  
+**📖 快速启动指南**: [QUICKSTART_UVX.md](QUICKSTART_UVX.md)
+
+---
 
 ## 功能特性
 
@@ -17,7 +73,7 @@
 🌙 **黄历查询** - 中国传统黄历，包含每日宜忌建议  
 🔮 **每日运势** - 基于传统历法的每日运势分析  
 ⭐ **节气查询** - 查询任意年份的二十四节气  
-🧮 **五行分析** - 根据出生信息分析五行属性  
+🧮 **五行分析** - 根据出生信息分析五行属性
 
 ## 安装
 
@@ -29,31 +85,35 @@
 ### 设置
 
 1. **克隆仓库：**
+
 ```bash
 git clone <repository-url>
 cd lunar-mcp-server
 ```
 
-2. **安装uv（如果尚未安装）：**
+2. **安装 uv（如果尚未安装）：**
+
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 3. **安装项目及依赖：**
+
 ```bash
 uv sync
 ```
 
 这将自动：
-- 创建Python 3.12虚拟环境
-- 从pyproject.toml安装所有依赖
-- 生成uv.lock确保构建可重现
+
+- 创建 Python 3.12 虚拟环境
+- 从 pyproject.toml 安装所有依赖
+- 生成 uv.lock 确保构建可重现
 
 ## 使用方法
 
-### 作为MCP服务器
+### 作为 MCP 服务器
 
-在MCP客户端中配置（例如Claude Desktop）：
+在 MCP 客户端中配置（例如 Claude Desktop）：
 
 ```json
 {
@@ -94,10 +154,12 @@ print(result['bazi_string'])  # 己巳 丙子 丙寅 壬辰
 计算用于命理分析的生辰八字。
 
 **参数：**
-- `birth_date`: 出生日期，格式YYYY-MM-DD
-- `birth_time`: 出生时间，格式HH:MM
+
+- `birth_date`: 出生日期，格式 YYYY-MM-DD
+- `birth_time`: 出生时间，格式 HH:MM
 
 **示例：**
+
 ```json
 {
   "birth_date": "1990-01-01",
@@ -110,11 +172,13 @@ print(result['bazi_string'])  # 己巳 丙子 丙寅 壬辰
 公历和农历之间的相互转换。
 
 **参数：**
-- `date`: 日期，格式YYYY-MM-DD
+
+- `date`: 日期，格式 YYYY-MM-DD
 - `convert_to`: "lunar"（农历）或"solar"（公历）
 - `is_leap`: 是否闰月（可选）
 
 **示例：**
+
 ```json
 {
   "date": "2024-01-01",
@@ -127,9 +191,11 @@ print(result['bazi_string'])  # 己巳 丙子 丙寅 壬辰
 查询指定日期的中国传统黄历信息。
 
 **参数：**
-- `date`: 日期，格式YYYY-MM-DD
+
+- `date`: 日期，格式 YYYY-MM-DD
 
 **示例：**
+
 ```json
 {
   "date": "2024-01-01"
@@ -141,9 +207,11 @@ print(result['bazi_string'])  # 己巳 丙子 丙寅 壬辰
 获取每日运势和建议。
 
 **参数：**
-- `date`: 日期，格式YYYY-MM-DD
+
+- `date`: 日期，格式 YYYY-MM-DD
 
 **示例：**
+
 ```json
 {
   "date": "2024-01-01"
@@ -155,9 +223,11 @@ print(result['bazi_string'])  # 己巳 丙子 丙寅 壬辰
 查询指定年份的二十四节气。
 
 **参数：**
+
 - `year`: 查询的年份
 
 **示例：**
+
 ```json
 {
   "year": 2024
@@ -169,10 +239,12 @@ print(result['bazi_string'])  # 己巳 丙子 丙寅 壬辰
 根据出生信息分析五行属性。
 
 **参数：**
-- `birth_date`: 出生日期，格式YYYY-MM-DD
-- `birth_time`: 出生时间，格式HH:MM
+
+- `birth_date`: 出生日期，格式 YYYY-MM-DD
+- `birth_time`: 出生时间，格式 HH:MM
 
 **示例：**
+
 ```json
 {
   "birth_date": "1990-01-01",
@@ -217,15 +289,15 @@ mypy src/
 
 ## 贡献
 
-1. Fork仓库
+1. Fork 仓库
 2. 创建功能分支
 3. 提交更改
 4. 推送到分支
-5. 创建Pull Request
+5. 创建 Pull Request
 
 ## 许可证
 
-本项目采用MIT许可证 - 详见[LICENSE](LICENSE)文件。
+本项目采用 MIT 许可证 - 详见[LICENSE](LICENSE)文件。
 
 ## 致谢
 
