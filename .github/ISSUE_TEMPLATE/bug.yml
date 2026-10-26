@@ -1,0 +1,56 @@
+name: "Bug 报告"
+description: "提交一个问题或 bug 报告"
+labels: ["bug"]
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢你提交 bug 报告。请如实填写以下内容，帮助我们快速定位并修复问题。
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 用一两句话描述遇到的问题。
+      placeholder: 例如：查询 2024 年节气时返回空结果。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤
+      description: 按顺序列出复现步骤，最好带上具体命令或输入。
+      placeholder: |
+        1. 运行 `uvx bach-lunar-mcp`
+        2. 调用 `jieqi_query` 工具
+        3. 传入参数 {"year": 2024}
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望行为
+      description: 你期望看到什么结果？
+      placeholder: 例如：返回 2024 年全部节气及日期。
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际行为
+      description: 实际发生了什么？可粘贴报错信息或返回结果。
+      placeholder: 例如：返回空列表 []。
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境
+      description: 运行环境信息：操作系统、Python 版本、包版本、安装方式等。
+      placeholder: |
+        - 操作系统：macOS 14
+        - Python：3.12
+        - 包版本：bach-lunar-mcp 1.0.0
+        - 安装方式：uvx
+    validations:
+      required: false
