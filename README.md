@@ -72,7 +72,7 @@ uvx bach-lunar-mcp
 📅 **Calendar Conversion** - Convert between solar and lunar calendars  
 🌙 **Huangli Query** - Chinese almanac with daily recommendations  
 🔮 **Daily Fortune** - Daily fortune and recommendations  
-⭐ **Solar Terms** - Query 24 solar terms for any year  
+⭐ **Solar Terms** - Look up solar terms for a given year  
 🧮 **Wu Xing Analysis** - Five elements analysis from birth info
 
 ## Installation
@@ -87,8 +87,8 @@ uvx bach-lunar-mcp
 1. **Clone the repository:**
 
 ```bash
-git clone <repository-url>
-cd lunar-mcp-server
+git clone https://github.com/BACH-AI-Tools/lunar_mcp_server.git
+cd lunar_mcp_server
 ```
 
 2. **Install uv (if not already installed):**
@@ -120,8 +120,8 @@ Configure in your MCP client (e.g., Claude Desktop):
   "mcpServers": {
     "lunar-calendar": {
       "command": "uv",
-      "args": ["run", "python", "-m", "src.server"],
-      "cwd": "/path/to/lunar-mcp-server"
+      "args": ["run", "bach-lunar-mcp"],
+      "cwd": "/path/to/lunar_mcp_server"
     }
   }
 }
@@ -220,7 +220,7 @@ Get daily fortune and recommendations.
 
 ### 5. jieqi_query
 
-Query 24 solar terms for a specific year.
+Look up solar terms for a given year.
 
 **Parameters:**
 
@@ -233,6 +233,8 @@ Query 24 solar terms for a specific year.
   "year": 2024
 }
 ```
+
+> ⚠️ **Known limitation:** the current implementation only checks the first day of each month, so most queries return few or no solar terms (it does not list all 24). See [issue #3](https://github.com/BACH-AI-Tools/lunar_mcp_server/issues/3).
 
 ### 6. wuxing_analyze
 
@@ -254,20 +256,25 @@ Analyze Wu Xing (Five Elements) from birth information.
 
 ## Development
 
-### Running Tests
+### Run the Server Locally
 
 ```bash
-# Quick functionality test
-uv run python quick_test.py
+# Run the MCP server (after `uv sync`)
+uv run bach-lunar-mcp
+```
 
-# Run MCP server
-uv run python run_server.py
+### Verify the Installation
 
-# Test specific functionality
+```bash
+# Check that the helper module imports correctly
 uv run python -c "from src.utils import LunarHelper; print('✅ Import works!')"
+```
 
-# Install dev dependencies (optional)
-uv add --dev pytest black mypy
+### Install Development Dependencies (optional)
+
+```bash
+# Install the `dev` dependency group (pytest, black, isort, mypy)
+uv sync --extra dev
 ```
 
 ### Code Formatting
