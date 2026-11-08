@@ -41,7 +41,10 @@ class LunarHelper:
                 "success": True,
                 "solar_date": f"{year}-{month:02d}-{day:02d}",
                 "lunar_year": lunar.getYear(),
-                "lunar_month": lunar.getMonth(),
+                # lunar-python marks leap months with a negative month number;
+                # expose the month itself and flag the leap month separately.
+                # lunar-python 用负数表示闰月，这里返回月份本身，闰月由 is_leap_month 标识
+                "lunar_month": abs(lunar.getMonth()),
                 "lunar_day": lunar.getDay(),
                 "lunar_month_chinese": lunar.getMonthInChinese(),
                 "lunar_day_chinese": lunar.getDayInChinese(),
