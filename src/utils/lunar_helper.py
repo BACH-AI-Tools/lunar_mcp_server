@@ -10,6 +10,7 @@ from datetime import datetime, date
 import json
 
 from lunar_python import Lunar, Solar, LunarMonth, LunarYear
+from lunar_python.util import LunarUtil
 
 
 class LunarHelper:
@@ -186,7 +187,11 @@ class LunarHelper:
                 "shen_sha": lunar.getDayShengXiao(),  # 神煞
                 "chong": lunar.getDayChong(),  # 冲
                 "sha": lunar.getDaySha(),  # 煞
-                "wu_xing": f"{lunar.getDayGan()}{lunar.getDayZhi()}",  # 五行 - 使用干支表示
+                # 五行 - 日干五行 + 日支五行，如甲子日为「木水」
+                "wu_xing": LunarUtil.WU_XING_GAN[lunar.getDayGan()] + LunarUtil.WU_XING_ZHI[lunar.getDayZhi()],
+                "position_xi": lunar.getDayPositionXiDesc(),  # 喜神方位
+                "position_fu": lunar.getDayPositionFuDesc(),  # 福神方位
+                "position_cai": lunar.getDayPositionCaiDesc(),  # 财神方位
                 "pengzu_gan": lunar.getPengZuGan(),  # 彭祖百忌天干
                 "pengzu_zhi": lunar.getPengZuZhi(),  # 彭祖百忌地支
                 "week_chinese": solar.getWeekInChinese(),

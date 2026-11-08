@@ -244,9 +244,8 @@ def fortune_daily(date: str) -> str:
 {', '.join(ji_list[:5]) if ji_list else '无特别禁忌'}
 
 🌟 **Lucky Elements / 幸运元素:**
-- Five Element / 五行: {result.get('wu_xing', '平和')}
-- Direction / 方位: 根据{result.get('gan_zhi_day', '')}推算
-- Color / 颜色: 根据五行{result.get('wu_xing', '')}选择
+- Five Element / 五行: {result['wu_xing']}
+- Direction / 方位: 喜神{result['position_xi']}, 福神{result['position_fu']}, 财神{result['position_cai']}
 
 📈 **Fortune Index / 运势指数:**
 - Overall / 综合: ⭐⭐⭐⭐ (基于黄历宜忌)
@@ -370,7 +369,7 @@ def wuxing_analyze(birth_date: str, birth_time: str) -> str:
 📝 **Summary / 总结:**
 {result['analysis_summary']}
 
-💡 **Recommendations / 建议:
+💡 **Recommendations / 建议:**
 """
 
             if missing:
