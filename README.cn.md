@@ -10,6 +10,8 @@
 
 基于 Python 3.12 和 lunar-python 构建的中国传统历法模型上下文协议(MCP)服务器。
 
+> **上游项目：** 本仓库是 Albert Huang 的 [lunar_mcp_server](https://github.com/AlbertHuangKSFO/lunar_mcp_server) 的维护分支，以 `bach-lunar-mcp` 名称发布到 PyPI。原版权声明保留在 [LICENSE](LICENSE) 中。
+
 ## 🚀 快速启动（推荐）
 
 ### 使用 UVX 一键启动
@@ -301,6 +303,7 @@ mypy src/
 
 ## 致谢
 
+- Albert Huang 的 [lunar_mcp_server](https://github.com/AlbertHuangKSFO/lunar_mcp_server) - 本维护分支所基于的原始项目
 - [lunar-python](https://github.com/6tail/lunar-python) - 优秀的中国农历库
 - [MCP](https://modelcontextprotocol.io/) - 模型上下文协议规范
 

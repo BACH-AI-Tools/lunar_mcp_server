@@ -10,6 +10,8 @@
 
 A Model Context Protocol (MCP) server for Chinese traditional calendar functions, built with Python 3.12 and lunar-python.
 
+> **Upstream:** this repository is a maintained fork of [lunar_mcp_server](https://github.com/AlbertHuangKSFO/lunar_mcp_server) by Albert Huang, published on PyPI as `bach-lunar-mcp`. The original copyright notice is kept in [LICENSE](LICENSE).
+
 ## 🚀 Quick Start (Recommended)
 
 ### One-Command Launch with UVX
@@ -301,6 +303,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
+- [lunar_mcp_server](https://github.com/AlbertHuangKSFO/lunar_mcp_server) by Albert Huang - the original project this fork is based on
 - [lunar-python](https://github.com/6tail/lunar-python) - Excellent Chinese lunar calendar library
 - [MCP](https://modelcontextprotocol.io/) - Model Context Protocol specification
 
