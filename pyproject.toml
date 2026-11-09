@@ -9,6 +9,7 @@ description = "Chinese Lunar Calendar MCP Agent"
 readme = "README.md"
 requires-python = ">=3.12"
 authors = [
+    { name = "Albert Huang" },
     { name = "Feng Rongquan", email = "kirifeng@example.com" }
 ]
 keywords = ["mcp", "lunar", "chinese-calendar", "bazi", "fortune"]
