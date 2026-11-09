@@ -7,6 +7,11 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+# 同一个分支 / PR 又推了新提交：取消还没跑完的旧扫描，不让过时的扫描占着 Sonar 服务器
+concurrency:
+  group: sonar-${{ github.event.pull_request.number || github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
 jobs:
   sonarqube:
     name: SonarQube Scan
@@ -29,3 +34,4 @@ jobs:
             -Dsonar.projectName=lunar_mcp_server
             -Dsonar.qualitygate.wait=true
             -Dsonar.qualitygate.timeout=300
+            -Dsonar.scanner.skipJreProvisioning=true
