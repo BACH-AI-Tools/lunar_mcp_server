@@ -219,22 +219,31 @@ class LunarHelper:
             Dictionary containing Jie Qi list / 包含节气列表的字典
         """
         try:
-            jie_qi_list = []
+            # The Jie Qi table of the lunar year around mid-year spans from the
+            # previous December to the next March, so it covers every solar
+            # term of the requested Gregorian year.
+            # 年中所在农历年的节气表覆盖上一年12月至下一年3月，包含该公历年全部节气
+            jie_qi_table = Solar.fromYmd(year, 6, 1).getLunar().getJieQiTable()
+            solar_days = sorted(
+                (solar for solar in jie_qi_table.values() if solar.getYear() == year),
+                key=lambda solar: solar.toYmd()
+            )
             
-            # Get all months in the year / 获取一年中的所有月份
-            for month in range(1, 13):
-                # Get first day of each month / 获取每月第一天
-                solar = Solar.fromYmd(year, month, 1)
-                lunar = solar.getLunar()
-                
-                # Get Jie Qi for this month / 获取本月节气
-                jie_qi = lunar.getJieQi()
-                if jie_qi:
-                    jie_qi_list.append({
-                        "name": jie_qi,
-                        "month": month,
-                        "solar_date": f"{year}-{month:02d}-01"
-                    })
+            jie_qi_list = [
+                {
+                    "name": solar.getLunar().getJieQi(),
+                    "month": solar.getMonth(),
+                    "solar_date": solar.toYmd()
+                }
+                for solar in solar_days
+            ]
+            
+            if len(jie_qi_list) != 24:
+                return {
+                    "success": False,
+                    "error": f"Expected 24 solar terms in {year}, found {len(jie_qi_list)} / "
+                             f"{year}年应有24个节气，实际找到{len(jie_qi_list)}个"
+                }
             
             return {
                 "success": True,
