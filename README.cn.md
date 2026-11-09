@@ -72,7 +72,7 @@ uvx bach-lunar-mcp
 📅 **历法转换** - 公历农历互相转换  
 🌙 **黄历查询** - 中国传统黄历，包含每日宜忌建议  
 🔮 **每日运势** - 基于传统历法的每日运势分析  
-⭐ **节气查询** - 查询任意年份的二十四节气  
+⭐ **节气查询** - 查询指定年份的节气  
 🧮 **五行分析** - 根据出生信息分析五行属性
 
 ## 安装
@@ -87,8 +87,8 @@ uvx bach-lunar-mcp
 1. **克隆仓库：**
 
 ```bash
-git clone <repository-url>
-cd lunar-mcp-server
+git clone https://github.com/BACH-AI-Tools/lunar_mcp_server.git
+cd lunar_mcp_server
 ```
 
 2. **安装 uv（如果尚未安装）：**
@@ -120,8 +120,8 @@ uv sync
   "mcpServers": {
     "lunar-calendar": {
       "command": "uv",
-      "args": ["run", "python", "-m", "src.server"],
-      "cwd": "/path/to/lunar-mcp-server"
+      "args": ["run", "bach-lunar-mcp"],
+      "cwd": "/path/to/lunar_mcp_server"
     }
   }
 }
@@ -220,7 +220,7 @@ print(result['bazi_string'])  # 己巳 丙子 丙寅 壬辰
 
 ### 5. jieqi_query（节气查询）
 
-查询指定年份的二十四节气。
+查询指定年份的节气。
 
 **参数：**
 
@@ -233,6 +233,8 @@ print(result['bazi_string'])  # 己巳 丙子 丙寅 壬辰
   "year": 2024
 }
 ```
+
+> ⚠️ **已知限制：** 当前实现只检查每月第一天，因此多数查询返回很少或没有节气（不会列出全部 24 个）。详见 [issue #3](https://github.com/BACH-AI-Tools/lunar_mcp_server/issues/3)。
 
 ### 6. wuxing_analyze（五行分析）
 
@@ -254,20 +256,25 @@ print(result['bazi_string'])  # 己巳 丙子 丙寅 壬辰
 
 ## 开发
 
-### 运行测试
+### 本地运行服务器
 
 ```bash
-# 快速功能测试
-uv run python quick_test.py
+# 运行 MCP 服务器（先执行 `uv sync`）
+uv run bach-lunar-mcp
+```
 
-# 运行MCP服务器
-uv run python run_server.py
+### 验证安装
 
-# 测试特定功能
+```bash
+# 检查辅助模块能否正常导入
 uv run python -c "from src.utils import LunarHelper; print('✅ 导入成功!')"
+```
 
-# 安装开发依赖（可选）
-uv add --dev pytest black mypy
+### 安装开发依赖（可选）
+
+```bash
+# 安装 `dev` 依赖组（pytest、black、isort、mypy）
+uv sync --extra dev
 ```
 
 ### 代码格式化
