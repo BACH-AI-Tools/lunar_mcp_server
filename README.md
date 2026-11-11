@@ -74,7 +74,7 @@ uvx bach-lunar-mcp
 📅 **Calendar Conversion** - Convert between solar and lunar calendars  
 🌙 **Huangli Query** - Chinese almanac with daily recommendations  
 🔮 **Daily Fortune** - Daily fortune and recommendations  
-⭐ **Solar Terms** - Query 24 solar terms for any year  
+⭐ **Solar Terms** - Query solar terms for a specific year  
 🧮 **Wu Xing Analysis** - Five elements analysis from birth info
 
 ## Installation
@@ -89,8 +89,8 @@ uvx bach-lunar-mcp
 1. **Clone the repository:**
 
 ```bash
-git clone <repository-url>
-cd lunar-mcp-server
+git clone https://github.com/BACH-AI-Tools/lunar_mcp_server
+cd lunar_mcp_server
 ```
 
 2. **Install uv (if not already installed):**
@@ -122,8 +122,8 @@ Configure in your MCP client (e.g., Claude Desktop):
   "mcpServers": {
     "lunar-calendar": {
       "command": "uv",
-      "args": ["run", "python", "-m", "src.server"],
-      "cwd": "/path/to/lunar-mcp-server"
+      "args": ["run", "bach-lunar-mcp"],
+      "cwd": "/path/to/lunar_mcp_server"
     }
   }
 }
@@ -136,16 +136,19 @@ You can also use the helper functions directly:
 ```bash
 # Run with uv
 uv run python -c "
-from src.utils import LunarHelper
+from utils import LunarHelper
 result = LunarHelper.solar_to_lunar(2024, 1, 1)
 print(result['lunar_date_chinese'])  # 二〇二三年冬月二十
+print(result['zodiac'])              # 兔
+print(result['gan_zhi_year'])        # 癸卯
+print(result['week_chinese'])        # 星期一
 "
 
 # Calculate BaZi
 uv run python -c "
-from src.utils import LunarHelper
+from utils import LunarHelper
 result = LunarHelper.get_bazi(1990, 1, 1, 8, 30)
-print(result['bazi_string'])  # 己巳 丙子 丙寅 壬辰
+print(result['bazi_string'])  # 己巳 丙子 丙寅 壬辰（示例输出）
 "
 ```
 
@@ -222,7 +225,7 @@ Get daily fortune and recommendations.
 
 ### 5. jieqi_query
 
-Query 24 solar terms for a specific year.
+Query solar terms for a specific year.
 
 **Parameters:**
 
@@ -235,6 +238,8 @@ Query 24 solar terms for a specific year.
   "year": 2024
 }
 ```
+
+> **Known limitation:** The current implementation only checks the 1st day of each month, so it may not return all 24 solar terms for a given year.
 
 ### 6. wuxing_analyze
 
@@ -256,20 +261,16 @@ Analyze Wu Xing (Five Elements) from birth information.
 
 ## Development
 
-### Running Tests
+### Verify the Installation
 
 ```bash
-# Quick functionality test
-uv run python quick_test.py
+uv run python -c "from utils import LunarHelper; print('✅ Import works!')"
+```
 
-# Run MCP server
-uv run python run_server.py
+### Install Dev Dependencies (Optional)
 
-# Test specific functionality
-uv run python -c "from src.utils import LunarHelper; print('✅ Import works!')"
-
-# Install dev dependencies (optional)
-uv add --dev pytest black mypy
+```bash
+uv sync --extra dev
 ```
 
 ### Code Formatting
