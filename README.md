@@ -74,7 +74,7 @@ uvx bach-lunar-mcp
 📅 **Calendar Conversion** - Convert between solar and lunar calendars  
 🌙 **Huangli Query** - Chinese almanac with daily recommendations  
 🔮 **Daily Fortune** - Daily fortune and recommendations  
-⭐ **Solar Terms** - Query solar terms for a specific year  
+⭐ **Solar Terms** - Query all 24 solar terms and their dates for a year  
 🧮 **Wu Xing Analysis** - Five elements analysis from birth info
 
 ## Installation
@@ -223,6 +223,8 @@ Get daily fortune and recommendations.
 }
 ```
 
+> **Note:** The overall index is a fixed ⭐⭐⭐⭐; the career / love / wealth ratings are matched by keywords against the day's almanac recommendations (宜忌), not computed from the date. This is for entertainment and cultural reference only.
+
 ### 5. jieqi_query
 
 Query solar terms for a specific year.
@@ -239,7 +241,7 @@ Query solar terms for a specific year.
 }
 ```
 
-> **Known limitation:** The current implementation only checks the 1st day of each month, so it may not return all 24 solar terms for a given year.
+> Returns all 24 solar terms of the given year with their real dates (calculated in China Standard Time).
 
 ### 6. wuxing_analyze
 
@@ -272,6 +274,14 @@ uv run python -c "from utils import LunarHelper; print('✅ Import works!')"
 ```bash
 uv sync --extra dev
 ```
+
+### Run Tests
+
+```bash
+uv run pytest
+```
+
+Tests live in `tests/` and cover the 24 solar terms query, Huangli Five Elements, and leap-month conversion.
 
 ### Code Formatting
 
